@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: CERN-OHL-W-2.0
+op_id,op_name,machine,part,setup_min,run_min,notes
+01,nest-and-cut-shells,plasma,shells-and-brackets.dxf,15,18,kerf 1.2mm; lead-ins 5mm
+02,cut-base-plate,plasma,base-plate.dxf,10,8,kerf 1.5mm at 6mm
+03,cut-hoop-strips,plasma-or-shear,counter-hoops.dxf,10,12,
+04,deburr-all-blanks,bench,all,10,30,scotch-brite + edge sander
+05,roll-shell-drum1,slip-roll,shell_drum1,8,4,three pre-bend passes; full curl on 4th
+06,roll-shell-drum2,slip-roll,shell_drum2,4,4,
+07,roll-shell-drum3,slip-roll,shell_drum3,4,4,
+08,roll-shell-drum4,slip-roll,shell_drum4,4,4,
+09,roll-shell-drum5,slip-roll,shell_drum5,8,6,minimum-radius watch
+10,tack-and-tig-shell-seams,tig,shells_x5,15,40,5 seams total; tack 3 spots then run continuous
+11,grind-seams-flush,bench-grinder,shells_x5,5,20,
+12,lathe-bearing-edge,lathe,shells_x5,20,40,4-jaw mount; 45deg form tool
+13,drill-lug-holes,drill-press,shells_x5,10,30,use laser-cut paper template
+14,roll-counter-hoops,slip-roll,counter_hoop_x5,8,15,
+15,tig-counter-hoop-seams,tig,counter_hoop_x5,10,15,
+16,bend-internal-brackets,finger-brake,bracket_x15,8,15,2 bends each
+17,lathe-pole-socket,lathe,pole_socket,15,15,bore 25.2mm; OD 40mm
+18,tig-base-plate-socket,tig,base_assy,10,8,3mm fillet around socket
+19,drill-tap-base-feet,drill-tap,base_plate,10,15,4x M8 threaded
+20,tig-internal-brackets-to-shells,tig,shells_x5,15,45,3 tacks per bracket x 3 brackets per drum x 5 drums
+21,paint-or-clear-coat,spray-booth,all-metal,30,60,satin clear or matte black; allow 24h cure
+22,final-assembly,bench,full-stack,30,90,head + hoop + rod tensioning per tuning-notes.md
