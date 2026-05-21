@@ -1,0 +1,74 @@
+{
+  "_spdx": "CERN-OHL-W-2.0",
+  "project": "modular-pedestal-drum-stack",
+  "machines": {
+    "plasma": {
+      "name": "Maker Nexus plasma CNC",
+      "bed_size_mm": [1500, 3000],
+      "max_thickness_mm": 12,
+      "use_for": [
+        "base_plate_disc",
+        "shell_blanks (alternative to shear)",
+        "counter_hoop_strip_blanks",
+        "internal_bracket_blanks"
+      ]
+    },
+    "laser": {
+      "name": "Maker Nexus 80W CO2 (cardstock prototype only)",
+      "bed_size_mm": [900, 600],
+      "use_for": [
+        "cardstock flat-pattern proofs of shell wrap before steel cut",
+        "lug-hole drill template"
+      ]
+    },
+    "slip_roll": {
+      "name": "Maker Nexus 3-roll plate roller",
+      "max_thickness_mm": 1.6,
+      "min_radius_mm": 38,
+      "use_for": ["all 5 shells", "all 5 counter hoops"]
+    },
+    "lathe": {
+      "name": "Maker Nexus engine lathe",
+      "swing_mm": 350,
+      "use_for": [
+        "base socket from 50mm round bar",
+        "bearing-edge chamfer on shell tops (mount in 4-jaw)",
+        "pole end-finish"
+      ]
+    },
+    "tig": {
+      "name": "Maker Nexus AHP AlphaTIG 200X",
+      "process": "GTAW DC for steel; argon shield",
+      "use_for": [
+        "5 shell seams",
+        "5 counter hoop seams",
+        "base plate to socket fillet",
+        "internal bracket tacks (3 per bracket)"
+      ]
+    }
+  },
+  "nesting_files": [
+    {
+      "name": "shells-and-brackets.dxf",
+      "stock": "1.2mm CRS 24x48",
+      "parts": ["shell_drum1..5", "internal_bracket_x15"]
+    },
+    {
+      "name": "base-plate.dxf",
+      "stock": "6mm CRS 16x16",
+      "parts": ["base_plate_disc"]
+    },
+    {
+      "name": "counter-hoops.dxf",
+      "stock": "3mm CRS flat bar 1m lengths x5",
+      "parts": ["counter_hoop_drum1..5"]
+    }
+  ],
+  "estimated_machine_hours": {
+    "plasma": 1.5,
+    "slip_roll": 2.0,
+    "lathe": 3.0,
+    "tig": 4.0,
+    "bench_assembly": 6.0
+  }
+}
