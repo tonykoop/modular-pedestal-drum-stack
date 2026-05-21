@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: CERN-OHL-W-2.0
+# Per sheet-metal skill: bend-allowance computed via sheet_metal_math.py
+# For 1.2mm cold-rolled steel, k-factor 0.44 (mid-range, air bend), inside radius 0.06in/1.5mm
+# BA = (angle_rad)(inside_radius + k * thickness)
+feature_id,angle_deg,inside_radius_mm,k_factor,bend_allowance_mm,sequence
+shell_drum1_roll,360,150,0.44,full-rolled-cylinder,1-set-rollers; 2-roll-pass; 3-tack-weld-seam
+shell_drum2_roll,360,125,0.44,full-rolled-cylinder,1-set-rollers; 2-roll-pass; 3-tack-weld-seam
+shell_drum3_roll,360,100,0.44,full-rolled-cylinder,1-set-rollers; 2-roll-pass; 3-tack-weld-seam
+shell_drum4_roll,360,75,0.44,full-rolled-cylinder,1-set-rollers; 2-roll-pass; 3-tack-weld-seam
+shell_drum5_roll,360,50,0.44,full-rolled-cylinder,1-set-rollers; 2-roll-pass; 3-tack-weld-seam; near slip-roll min
+bracket_bend1,90,1.5,0.44,3.0,first bend in U-channel
+bracket_bend2,90,1.5,0.44,3.0,second bend in U-channel; flip and clamp
+bearing_edge_inward_roll,30,2.0,0.44,1.7,inward chamfer at top of shell; bead-roller pass
+counter_hoop_roll_d1,360,150,0.42,full-rolled-ring,3mm flat bar; expect spring-back ~5deg
+counter_hoop_roll_d2,360,125,0.42,full-rolled-ring,3mm flat bar
+counter_hoop_roll_d3,360,100,0.42,full-rolled-ring,3mm flat bar
+counter_hoop_roll_d4,360,75,0.42,full-rolled-ring,3mm flat bar
+counter_hoop_roll_d5,360,50,0.42,full-rolled-ring,3mm flat bar; minimum radius watch

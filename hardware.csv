@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: CERN-OHL-W-2.0
+part,qty,material,size,role
+snare_lug,30,die-cast-zinc,std-M6,6 per drum, anchors tension rod
+tension_rod,30,steel,M6x50mm fine thread,pulls counter hoop down
+tension_rod_washer,30,nylon,M6x3mm,reduces friction
+claw_hook,30,bent-steel,1.5mm flat,grabs counter hoop and head flesh-hoop
+rubber_isolator_puck,4,nitrile-30-shore-A,25mm-dia x 8mm,inter-drum vibration isolator
+levelling_foot,4,steel-rubber,M8 stud,base plate rim
+m4_cup_point_setscrew,10,steel,M4x6mm,clamps internal bracket to pole (2 per drum)
+m6_lug_anchor_screw,60,steel,M6x10mm wood-screw equivalent,attaches lug to shell (2 per lug; pre-drilled holes)
+loctite_blue,1,thread-locker,243,on tension rods to resist tuning drift
+felt_strip,5,wool-felt,3mm x 10mm,inside shell under head edge; optional damping ring
+mallet_pair,1,wood-and-felt,T1-equivalent,Vic Firth T1 or local equivalent
