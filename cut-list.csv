@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: CERN-OHL-W-2.0
+part,blank_size,material,nesting_notes
+shell_drum1,945x180mm,1.2mm CRS,circumference = pi*300 + 3mm weld overlap; nest 5 shells across a 24x48 sheet
+shell_drum2,789x160mm,1.2mm CRS,circumference = pi*250 + 3mm
+shell_drum3,631x140mm,1.2mm CRS,circumference = pi*200 + 3mm
+shell_drum4,474x120mm,1.2mm CRS,circumference = pi*150 + 3mm
+shell_drum5,317x100mm,1.2mm CRS,circumference = pi*100 + 3mm
+base_plate,380mm-circle-disc,6mm CRS plate,plasma-cut from 16x16 inch (406x406) square stock; rough then turn-finish
+internal_bracket_drum1_to_drum5,50x60mm-3-per-drum-15-total,1.2mm CRS,formed U-channel 20-20-20mm; cut as flat blanks first then bend
+counter_hoop_drum1,945x18mm,3mm flat bar,roll to 300mm OD ring, butt-weld, dress flush
+counter_hoop_drum2,789x18mm,3mm flat bar,roll to 250mm OD ring
+counter_hoop_drum3,631x18mm,3mm flat bar,roll to 200mm OD ring
+counter_hoop_drum4,474x18mm,3mm flat bar,roll to 150mm OD ring
+counter_hoop_drum5,317x18mm,3mm flat bar,roll to 100mm OD ring
+pole_socket,40mm-diameter-30mm-tall,turned-steel-cylinder,lathe-turn from 50mm round bar; bore 25.2mm ID; weld to base plate centre
+pole_tube,25mm-OD-1350mm-length,stainless-304 1.5mm wall,cut to length with chop saw; deburr both ends

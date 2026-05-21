@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: CERN-OHL-W-2.0
+supplier,part,sku,url,min_qty,notes
+onlinemetals.com,cold-rolled-steel-sheet 1.2mm,1008-1010-18ga-24x48,https://www.onlinemetals.com/,1,cut-to-size service available; specify 24x48 blank
+onlinemetals.com,cold-rolled-steel-plate 6mm,1018-1/4in-12x12,https://www.onlinemetals.com/,1,for base plate
+onlinemetals.com,flat-bar 3mm,1018-1/8in-flat-bar,https://www.onlinemetals.com/,1,for counter hoops; need 5 lengths of ~1m
+mcmaster,stainless-304-tube 25mm-OD,89815K85-or-equivalent,https://www.mcmaster.com/,1,verify wall thickness; 1.5 mm is 18-19 gauge
+mcmaster,nitrile-rubber-puck,9540K23,https://www.mcmaster.com/,1,30-shore-A medium-soft
+mcmaster,levelling-foot M8,2154K12,https://www.mcmaster.com/,4,
+mcmaster,M4-cup-point-setscrew,91375A115,https://www.mcmaster.com/,1,pack of 100
+sweetwater,Remo-coated-Ambassador-head,multiple-sizes,https://www.sweetwater.com/,1,must specify each size; 100mm and 150mm may need special order
+sweetwater,Vic-Firth-T1-mallets,VFT1,https://www.sweetwater.com/,1,timpani/tom mallet pair
+drum-supply,pearl-style-snare-lug,DSU-LUG-DC,https://drumsupply.com/,5,die-cast zinc; standard M6 thread; 30 needed (6 per drum)
+drum-supply,tension-rod-M6,DSU-TR-M6-50,https://drumsupply.com/,30,50 mm length; M6 fine thread
+drum-supply,claw-hook,DSU-CH-STD,https://drumsupply.com/,30,fits 3 mm counter-hoop

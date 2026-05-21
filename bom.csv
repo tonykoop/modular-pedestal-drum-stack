@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: CERN-OHL-W-2.0
+part,qty,material,thickness_gauge,supplier,cost_usd,lead_time_days
+shell_drum1,1,cold-rolled-steel,1.2mm/18ga,onlinemetals.com,18,3
+shell_drum2,1,cold-rolled-steel,1.2mm/18ga,onlinemetals.com,15,3
+shell_drum3,1,cold-rolled-steel,1.2mm/18ga,onlinemetals.com,12,3
+shell_drum4,1,cold-rolled-steel,1.2mm/18ga,onlinemetals.com,10,3
+shell_drum5,1,cold-rolled-steel,1.2mm/18ga,onlinemetals.com,8,3
+base_plate,1,cold-rolled-steel,6mm/1/4in,onlinemetals.com,32,3
+pedestal_pole,1,stainless-304-tube,25mm-od-1.5mm-wall,mcmaster,28,2
+counter_hoop_blank,5,cold-rolled-steel,3mm-flat-bar,onlinemetals.com,25,3
+drumhead_300mm,1,remo-coated-ambassador,10mil,sweetwater,18,2
+drumhead_250mm,1,remo-coated-ambassador,10mil,sweetwater,15,2
+drumhead_200mm,1,remo-coated-ambassador,10mil,sweetwater,12,2
+drumhead_150mm,1,remo-coated-ambassador,10mil,sweetwater,10,2
+drumhead_100mm,1,remo-coated-ambassador,10mil,sweetwater,9,2
+lug_assembly,30,pearl-or-yamaha-snare-lug,die-cast-zinc,sweetwater,90,3
+tension_rod,30,m6-fine-thread,steel,drum-supply,30,3
+tension_rod_washer,30,nylon,3mm,drum-supply,4,3
+claw_hook,30,bent-steel-flat,1.5mm,drum-supply,18,3
+internal_bracket_blank,5,cold-rolled-steel,1.2mm/18ga,from-shell-stock,0,0
+rubber_puck_isolator,4,nitrile-rubber,30-shore-A-25mm,mcmaster,8,2
+levelling_foot,4,m8-stud-rubber-base,steel-rubber,mcmaster,12,2
+pole_set_screw,10,m4-cup-point,steel,mcmaster,2,2
+mallet_pair,1,vic-firth-T1,wood-felt,sweetwater,28,2
+total_estimate,,,,,$398,

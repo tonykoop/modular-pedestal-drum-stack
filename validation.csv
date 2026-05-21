@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: CERN-OHL-W-2.0
+target_metric,predicted,measured,units,pass_fail,notes
+drum1_f01,110.00,,Hz,pending,target A2; predicted from wolfram-starter.wl with T=425 N/m
+drum1_f11,175.31,,Hz,pending,first overtone (1.594 * f01); not harmonic
+drum2_f01,130.81,,Hz,pending,target C3
+drum2_f11,208.51,,Hz,pending,first overtone
+drum3_f01,164.81,,Hz,pending,target E3
+drum3_f11,262.71,,Hz,pending,first overtone
+drum4_f01,196.00,,Hz,pending,target G3
+drum4_f11,312.39,,Hz,pending,first overtone
+drum5_f01,220.00,,Hz,pending,target A3
+drum5_f11,350.62,,Hz,pending,first overtone
+drum1_shell_ring_n2,1620,,Hz,pending,Love thin-cylinder for 300mm * 1.2mm shell
+drum5_shell_ring_n2,4900,,Hz,pending,100mm shell decouples cleanly from head partials
+pentatonic_pitch_accuracy,15,,cents,pending,each drum within +-15 cents of target after tuning
+pole_lateral_deflection,5,,mm,pending,under 50N lateral load applied at top drum head
+top_drum_head_height,1380,,mm,pending,for standing-play ergonomics; tolerance +-10mm
+slip_roll_min_radius_drum5,38,,mm,pending,must be < drum5 inner radius (50 mm)
+shell_seam_weld_quality,0,,defects,pending,visual: no porosity, ground flush, no warpage > 0.5mm
+bearing_edge_chamfer,45,,deg,pending,measured at 8 points around each shell, +-2 deg
+total_weight,14,,kg,pending,scale measurement of fully assembled instrument

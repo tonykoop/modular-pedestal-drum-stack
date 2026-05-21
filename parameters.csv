@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: CERN-OHL-W-2.0
+name,value,unit,source,confidence
+total_height,1450,mm,design.md ergonomic envelope,high
+base_plate_diameter,380,mm,design intent,high
+base_plate_thickness,6,mm,design.md sec 4,high
+pole_od,25,mm,design.md sec 4,high
+pole_wall_thickness,1.5,mm,design.md sec 4,high
+pole_length,1350,mm,design.md sec 4,high
+shell_thickness,1.2,mm,design.md frontmatter,high
+shell_material,cold-rolled-steel,-,design.md frontmatter,high
+drum1_od,300,mm,design.md frontmatter,high
+drum1_height,180,mm,design.md frontmatter,high
+drum1_target_freq,110.00,Hz,design.md frontmatter (A2),high
+drum1_membrane_tension,425,N/m,wolfram-starter.wl,med
+drum1_head_height_above_base,720,mm,design intent,high
+drum2_od,250,mm,design.md frontmatter,high
+drum2_height,160,mm,design.md frontmatter,high
+drum2_target_freq,130.81,Hz,design.md frontmatter (C3),high
+drum2_membrane_tension,419,N/m,wolfram-starter.wl,med
+drum2_head_height_above_base,890,mm,design intent,high
+drum3_od,200,mm,design.md frontmatter,high
+drum3_height,140,mm,design.md frontmatter,high
+drum3_target_freq,164.81,Hz,design.md frontmatter (E3),high
+drum3_membrane_tension,426,N/m,wolfram-starter.wl,med
+drum3_head_height_above_base,1050,mm,design intent,high
+drum4_od,150,mm,design.md frontmatter,high
+drum4_height,120,mm,design.md frontmatter,high
+drum4_target_freq,196.00,Hz,design.md frontmatter (G3),high
+drum4_membrane_tension,343,N/m,wolfram-starter.wl,med
+drum4_head_height_above_base,1200,mm,design intent,high
+drum5_od,100,mm,design.md frontmatter,high
+drum5_height,100,mm,design.md frontmatter,high
+drum5_target_freq,220.00,Hz,design.md frontmatter (A3),high
+drum5_membrane_tension,215,N/m,wolfram-starter.wl,med
+drum5_head_height_above_base,1380,mm,design intent,high
+head_material,mylar,-,design.md sec 2,high
+head_thickness,0.254,mm,Remo/Evans 10mil,high
+head_density,1390,kg/m^3,Remo spec,med
+tension_rods_per_drum,6,count,snare-style hoop std,high
+lug_ring_clearance_od,360,mm,drum1 hoop + lug clearance,med
+slip_roll_min_radius,38,mm,sheet-metal skill estimate 1.2mm CRS,med
+inter_drum_gap,50,mm,design.md sec 4,high
+bearing_edge_chamfer_deg,45,deg,tuning-notes.md,med
+levelling_feet_count,4,count,design.md sec 4,high
+total_weight_estimate,14,kg,design.md ergonomic envelope,low
