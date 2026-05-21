@@ -1,0 +1,600 @@
+<!doctype html>
+<!-- SPDX-License-Identifier: CC-BY-4.0 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modular Pedestal Drum Stack — Studio Explorer</title>
+
+<style>
+/* ============================================================
+   Heifer Zephyr — design tokens (matches handpan/explorer.html)
+   ============================================================ */
+:root{
+  --walnut:#3D2817; --cedar:#B98B47; --cream:#F8F4E9; --paper:#FFFFFF;
+  --lapis:#1E3A8A; --gold:#D4A017; --ink:#1F1A14; --muted:#6B5E4D;
+  --rule:#E0D6C5; --ok:#2E7D32; --warn:#C89220; --block:#A03A2A;
+  --code-bg:#F2EBDA; --hover:#EFE7D3;
+  --sb-w:260px; --bar-h:56px;
+  --serif:"Fraunces","Source Serif Pro","Iowan Old Style",Georgia,serif;
+  --ui:"Inter","Source Sans Pro","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",Menlo,Consolas,monospace;
+  --italic-serif:"Cormorant Garamond","EB Garamond",Georgia,serif;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--cream);color:var(--ink);
+  font-family:var(--ui);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--lapis);text-decoration:none}
+a:hover{text-decoration:underline}
+code{font-family:var(--mono);font-size:0.88em;background:var(--code-bg);
+  padding:1px 5px;border-radius:3px}
+pre{font-family:var(--mono);font-size:12px;background:var(--code-bg);
+  padding:12px 14px;border-radius:4px;overflow:auto;line-height:1.45;
+  border-left:3px solid var(--cedar)}
+
+.app-bar{position:sticky;top:0;z-index:30;height:var(--bar-h);
+  background:var(--walnut);color:var(--cream);
+  border-bottom:3px solid var(--gold);
+  display:flex;align-items:center;gap:24px;padding:0 20px}
+.wordmark em{font-family:var(--italic-serif);font-style:italic;
+  font-size:22px;color:var(--gold);letter-spacing:0.01em}
+.instrument{font-family:var(--serif);font-size:15px;color:var(--cream);
+  border-left:1px solid rgba(248,244,233,0.3);padding-left:14px}
+
+.app{display:grid;grid-template-columns:var(--sb-w) 1fr;
+  min-height:calc(100vh - var(--bar-h))}
+.sidebar{background:var(--paper);border-right:1px solid var(--rule);
+  position:sticky;top:var(--bar-h);height:calc(100vh - var(--bar-h));
+  overflow-y:auto;padding:18px 0}
+.sidebar .label{font-family:var(--ui);font-size:11px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:0.1em;padding:8px 22px 4px;margin-top:8px}
+.sidebar .label:first-of-type{margin-top:0}
+.toc{list-style:none;margin:0;padding:0}
+.toc a{display:block;padding:6px 22px;color:var(--ink);font-size:14px;border-left:3px solid transparent}
+.toc a:hover{background:var(--hover);text-decoration:none;border-left-color:var(--cedar)}
+.toc a.active{background:var(--code-bg);border-left-color:var(--gold);color:var(--walnut);font-weight:600}
+
+main{padding:24px 36px 60px;max-width:1100px}
+section{margin-bottom:40px}
+h1{font-family:var(--serif);font-size:30px;color:var(--walnut);margin:0 0 6px}
+.eyebrow{font-family:var(--ui);font-size:11px;color:var(--cedar);
+  text-transform:uppercase;letter-spacing:0.14em;display:block;margin-bottom:4px}
+h2{font-family:var(--serif);font-size:22px;color:var(--walnut);margin:24px 0 8px}
+h3{font-family:var(--ui);font-size:14px;color:var(--ink);
+  text-transform:uppercase;letter-spacing:0.08em;margin:16px 0 6px}
+
+.lede{font-family:var(--italic-serif);font-style:italic;font-size:18px;
+  color:var(--walnut);max-width:760px;margin:0 0 18px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:5px;
+  padding:14px 16px}
+.card .k{font-family:var(--ui);font-size:11px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:0.1em}
+.card .v{font-family:var(--serif);font-size:18px;color:var(--walnut);
+  margin-top:4px;display:block}
+.card .sub{display:block;font-family:var(--ui);font-size:12px;color:var(--muted);margin-top:3px}
+
+.file{background:var(--paper);border:1px solid var(--rule);border-radius:5px;
+  margin-bottom:12px;overflow:hidden}
+.file-head{display:flex;align-items:center;gap:12px;padding:10px 14px;cursor:pointer;
+  border-bottom:1px solid var(--rule);background:var(--paper)}
+.file-head:hover{background:var(--hover)}
+.file-head .icon{font-family:var(--mono);font-size:12px;color:var(--cedar);
+  transition:transform 0.15s;display:inline-block;width:14px}
+.file.open .file-head .icon{transform:rotate(90deg)}
+.file-name{font-family:var(--mono);font-size:13px;color:var(--walnut);font-weight:600}
+.file-type{font-family:var(--ui);font-size:10px;color:var(--cream);background:var(--cedar);
+  padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:0.06em}
+.file-desc{font-family:var(--ui);font-size:12px;color:var(--muted);flex:1}
+.file-actions{margin-left:auto}
+.file-actions a{font-family:var(--ui);font-size:12px;color:var(--lapis)}
+.file-body{display:none;padding:14px 18px}
+.file.open .file-body{display:block}
+.file-body table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px}
+.file-body th{background:var(--code-bg);color:var(--walnut);padding:6px 8px;
+  text-align:left;border-bottom:2px solid var(--cedar);font-weight:600}
+.file-body td{padding:5px 8px;border-bottom:1px solid var(--rule);vertical-align:top}
+.table-stats{font-family:var(--ui);font-size:11px;color:var(--muted);margin-top:8px}
+.md h1,.md h2,.md h3{margin-top:18px}
+.md p{margin:8px 0}
+
+footer{border-top:1px solid var(--rule);margin-top:40px;padding-top:18px;
+  font-size:12px;color:var(--muted)}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--walnut)}
+
+.spec-table{width:100%;border-collapse:collapse;font-family:var(--ui);font-size:14px;margin:10px 0}
+.spec-table th{background:var(--code-bg);color:var(--walnut);padding:8px 10px;text-align:left;
+  border-bottom:2px solid var(--cedar);font-weight:600;font-family:var(--serif)}
+.spec-table td{padding:6px 10px;border-bottom:1px solid var(--rule)}
+
+.muted{color:var(--muted)}
+.placeholder{font-family:var(--italic-serif);font-style:italic;color:var(--muted);
+  background:var(--code-bg);padding:14px 18px;border-radius:5px;border-left:3px solid var(--cedar)}
+</style>
+</head>
+<body>
+
+<div class="app-bar">
+  <div class="wordmark"><em>Heifer Zephyr</em></div>
+  <div class="instrument">Modular Pedestal Drum Stack · v0.1.0-blueprint</div>
+</div>
+
+<div class="app">
+
+<nav class="sidebar">
+  <div class="label">Overview</div>
+  <ul class="toc">
+    <li><a href="#hero">Design thesis</a></li>
+    <li><a href="#specs">Specifications</a></li>
+  </ul>
+  <div class="label">Design</div>
+  <ul class="toc">
+    <li><a href="#design">design.md</a></li>
+    <li><a href="#parameters">parameters.csv</a></li>
+    <li><a href="#tuning">Tuning notes</a></li>
+  </ul>
+  <div class="label">Acoustics</div>
+  <ul class="toc">
+    <li><a href="#wolfram">wolfram-starter.wl</a></li>
+    <li><a href="#validation">validation.csv</a></li>
+  </ul>
+  <div class="label">Fabrication</div>
+  <ul class="toc">
+    <li><a href="#bom">BOM + sourcing</a></li>
+    <li><a href="#cut">Cut list + bend table</a></li>
+    <li><a href="#fab">Fabrication plan</a></li>
+    <li><a href="#assembly">Assembly manual</a></li>
+  </ul>
+  <div class="label">Publish</div>
+  <ul class="toc">
+    <li><a href="#risks">Risks</a></li>
+    <li><a href="#shotlist">Photo shotlist</a></li>
+    <li><a href="#rfq">Supplier RFQ</a></li>
+    <li><a href="#images">Images</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<section id="hero">
+  <h1><span class="eyebrow">Sheet-metal greenfield blueprint · Round 5 · Lane 08</span>Modular Pedestal Drum Stack</h1>
+  <p class="lede">Five single-headed sheet-metal drums stacked on a central pedestal pole — pentatonic A-minor (A2-C3-E3-G3-A3), played top-down with mallets. A floor tom's footprint, a tom-stack's melodic range.</p>
+  <div class="cards">
+    <div class="card"><div class="k">Family</div><span class="v">Membranophone</span><span class="sub">5 single-headed cylindrical drums</span></div>
+    <div class="card"><div class="k">Shells</div><span class="v">1.2 mm CRS</span><span class="sub">Rolled, TIG-seam, lathe-chamfered</span></div>
+    <div class="card"><div class="k">Footprint</div><span class="v">380 mm × 1450 mm</span><span class="sub">Base plate × total height</span></div>
+    <div class="card"><div class="k">Weight</div><span class="v">~14 kg</span><span class="sub">Base 5 · pole 1.5 · drums 5×1.4 · hw 0.5</span></div>
+    <div class="card"><div class="k">Pitches</div><span class="v">A2 C3 E3 G3 A3</span><span class="sub">A-minor pentatonic (D omitted)</span></div>
+    <div class="card"><div class="k">License</div><span class="v">CERN-OHL-W + CC-BY</span><span class="sub">Hardware + documentation, dual</span></div>
+  </div>
+</section>
+
+<section id="specs">
+  <h1><span class="eyebrow">· Specifications at a glance</span>Per-drum spec table</h1>
+  <table class="spec-table">
+    <thead><tr><th>Drum</th><th>OD (mm)</th><th>Height (mm)</th><th>Note</th><th>Hz</th><th>Tension (N/m)</th><th>Head Z (mm)</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>300</td><td>180</td><td>A2</td><td>110.00</td><td>425</td><td>720</td></tr>
+      <tr><td>2</td><td>250</td><td>160</td><td>C3</td><td>130.81</td><td>419</td><td>890</td></tr>
+      <tr><td>3</td><td>200</td><td>140</td><td>E3</td><td>164.81</td><td>426</td><td>1050</td></tr>
+      <tr><td>4</td><td>150</td><td>120</td><td>G3</td><td>196.00</td><td>343</td><td>1200</td></tr>
+      <tr><td>5</td><td>100</td><td>100</td><td>A3</td><td>220.00</td><td>215</td><td>1380</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="design">
+  <h1><span class="eyebrow">· Parametric design</span>design.md</h1>
+  <div class="file open">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">design.md</span>
+      <span class="file-type">MD</span>
+      <span class="file-desc">Parametric design with frontmatter</span>
+      <span class="file-actions"><a href="design.md" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-md="design.md"></div>
+  </div>
+</section>
+
+<section id="parameters">
+  <h1><span class="eyebrow">· Driving dimensions</span>parameters.csv</h1>
+  <div class="file open">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">parameters.csv</span>
+      <span class="file-type">CSV</span>
+      <span class="file-desc">Every driving dimension downstream agents need</span>
+      <span class="file-actions"><a href="parameters.csv" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-csv="parameters.csv"></div>
+  </div>
+</section>
+
+<section id="tuning">
+  <h1><span class="eyebrow">· Acoustic targets</span>Tuning notes</h1>
+  <div class="file open">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">tuning-notes.md</span>
+      <span class="file-type">MD</span>
+      <span class="file-desc">Targets, procedure, bearing edge, sustain</span>
+      <span class="file-actions"><a href="tuning-notes.md" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-md="tuning-notes.md"></div>
+  </div>
+</section>
+
+<section id="wolfram">
+  <h1><span class="eyebrow">· First-principles model</span>wolfram-starter.wl</h1>
+  <p>Bessel-function membrane fundamentals and Love's thin-cylinder shell ring mode for each of 5 drums. Predictions populate the <code>predicted</code> column of <code>validation.csv</code>.</p>
+  <div class="file open">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">wolfram-starter.wl</span>
+      <span class="file-type">WL</span>
+      <span class="file-desc">Acoustic first-order model</span>
+      <span class="file-actions"><a href="wolfram-starter.wl" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body"><pre data-pre="wolfram-starter.wl"></pre></div>
+  </div>
+</section>
+
+<section id="validation">
+  <h1><span class="eyebrow">· Pass/fail gates</span>validation.csv</h1>
+  <div class="file open">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">validation.csv</span>
+      <span class="file-type">CSV</span>
+      <span class="file-desc">Predicted vs. measured, with pass/fail</span>
+      <span class="file-actions"><a href="validation.csv" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-csv="validation.csv"></div>
+  </div>
+</section>
+
+<section id="bom">
+  <h1><span class="eyebrow">· Bill of materials</span>BOM + sourcing</h1>
+  <div class="file">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">bom.csv</span>
+      <span class="file-type">CSV</span>
+      <span class="file-desc">Parts, qty, materials, supplier, cost</span>
+      <span class="file-actions"><a href="bom.csv" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-csv="bom.csv"></div>
+  </div>
+  <div class="file">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">sourcing.csv</span>
+      <span class="file-type">CSV</span>
+      <span class="file-desc">Supplier, SKU, URL, min-qty</span>
+      <span class="file-actions"><a href="sourcing.csv" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-csv="sourcing.csv"></div>
+  </div>
+  <div class="file">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">hardware.csv</span>
+      <span class="file-type">CSV</span>
+      <span class="file-desc">Snare lugs, rods, claws, pucks, feet</span>
+      <span class="file-actions"><a href="hardware.csv" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-csv="hardware.csv"></div>
+  </div>
+</section>
+
+<section id="cut">
+  <h1><span class="eyebrow">· Sheet-metal authority</span>Cut list + bend table</h1>
+  <div class="file">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">cut-list.csv</span>
+      <span class="file-type">CSV</span>
+      <span class="file-desc">Blank sizes per part, nesting notes</span>
+      <span class="file-actions"><a href="cut-list.csv" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-csv="cut-list.csv"></div>
+  </div>
+  <div class="file">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">bend-table.csv</span>
+      <span class="file-type">CSV</span>
+      <span class="file-desc">Feature, angle, radius, K-factor, sequence</span>
+      <span class="file-actions"><a href="bend-table.csv" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-csv="bend-table.csv"></div>
+  </div>
+  <div class="file">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">flat-pattern-checklist.md</span>
+      <span class="file-type">MD</span>
+      <span class="file-desc">DXF conventions, per-part checklist</span>
+      <span class="file-actions"><a href="flat-pattern-checklist.md" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-md="flat-pattern-checklist.md"></div>
+  </div>
+  <div class="file">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">solidworks-plan.md</span>
+      <span class="file-type">MD</span>
+      <span class="file-desc">Feature tree, configurations, design table</span>
+      <span class="file-actions"><a href="solidworks-plan.md" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-md="solidworks-plan.md"></div>
+  </div>
+</section>
+
+<section id="fab">
+  <h1><span class="eyebrow">· Cut → form → join → finish</span>Fabrication plan</h1>
+  <div class="file open">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">fabrication-plan.md</span>
+      <span class="file-type">MD</span>
+      <span class="file-desc">Maker Nexus-keyed sequence with QC gates</span>
+      <span class="file-actions"><a href="fabrication-plan.md" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-md="fabrication-plan.md"></div>
+  </div>
+  <div class="file">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">cnc/operations.csv</span>
+      <span class="file-type">CSV</span>
+      <span class="file-desc">Per-op machine, setup, run-time estimates</span>
+      <span class="file-actions"><a href="cnc/operations.csv" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-csv="cnc/operations.csv"></div>
+  </div>
+</section>
+
+<section id="assembly">
+  <h1><span class="eyebrow">· Builder-facing</span>Assembly manual</h1>
+  <div class="file open">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">assembly-manual.md</span>
+      <span class="file-type">MD</span>
+      <span class="file-desc">Step-by-step build sequence</span>
+      <span class="file-actions"><a href="assembly-manual.md" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-md="assembly-manual.md"></div>
+  </div>
+</section>
+
+<section id="risks">
+  <h1><span class="eyebrow">· Risk register</span>Known risks + mitigations</h1>
+  <div class="file open">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">risks.md</span>
+      <span class="file-type">MD</span>
+      <span class="file-desc">Acoustic, manufacturability, safety, supply</span>
+      <span class="file-actions"><a href="risks.md" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-md="risks.md"></div>
+  </div>
+</section>
+
+<section id="shotlist">
+  <h1><span class="eyebrow">· Capture plan</span>Photo shotlist</h1>
+  <div class="file">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">photo-shotlist.md</span>
+      <span class="file-type">MD</span>
+      <span class="file-desc">Hero, detail, process, showcase shots</span>
+      <span class="file-actions"><a href="photo-shotlist.md" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-md="photo-shotlist.md"></div>
+  </div>
+</section>
+
+<section id="rfq">
+  <h1><span class="eyebrow">· Quote-ready</span>Supplier RFQ</h1>
+  <div class="file">
+    <div class="file-head" onclick="toggleFile(this)">
+      <span class="icon">▶</span>
+      <span class="file-name">supplier-rfq.md</span>
+      <span class="file-type">MD</span>
+      <span class="file-desc">Email text for steel, hardware, drum-parts</span>
+      <span class="file-actions"><a href="supplier-rfq.md" target="_blank" rel="noopener">Open</a></span>
+    </div>
+    <div class="file-body" data-md="supplier-rfq.md"></div>
+  </div>
+</section>
+
+<section id="images">
+  <h1><span class="eyebrow">· Image gallery</span>Photos (pending)</h1>
+  <div class="placeholder">
+    <p>This blueprint round shipped without photographs. See <code>photo-shotlist.md</code> for the intended capture plan. Future builds populate <code>images/</code> per shotlist conventions.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Modular Pedestal Drum Stack · v0.1.0-blueprint · <a href="agent-record.md">agent-record.md</a></p>
+  <p>Hardware (CAD, DXF, STEP, BOM): <a href="LICENSE-HARDWARE.md">CERN-OHL-W 2.0</a> · Documentation: <a href="LICENSE-DOCS.md">CC BY 4.0</a></p>
+  <p>Heifer Zephyr instrument family · sheet-metal-instruments-2026-05-20 sprint · Round 5, Lane 08</p>
+</footer>
+
+</main>
+</div>
+
+<script>
+function escapeHTML(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')
+          .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function inlineMD(s){
+  return s
+    .replace(/`([^`]+)`/g, (m,c)=>'<code>'+c+'</code>')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*]+)\*/g, '$1<em>$2</em>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+}
+function parseCSVRow(line){
+  const out = []; let cur = ''; let q = false;
+  for (let i=0; i<line.length; i++){
+    const c = line[i];
+    if (q){
+      if (c === '"' && line[i+1] === '"'){ cur += '"'; i++; }
+      else if (c === '"'){ q = false; }
+      else cur += c;
+    } else {
+      if (c === ','){ out.push(cur); cur = ''; }
+      else if (c === '"'){ q = true; }
+      else cur += c;
+    }
+  }
+  out.push(cur);
+  return out;
+}
+function renderCSV(target, text){
+  const lines = text.replace(/\r/g,'').split('\n')
+    .filter(l => l.length && !l.startsWith('#'));
+  if (!lines.length){ target.innerHTML = '<p class="muted">Empty</p>'; return; }
+  const head = parseCSVRow(lines.shift());
+  const rows = lines.map(parseCSVRow);
+  const wrap = document.createElement('div');
+  const tbl = document.createElement('table');
+  const thead = document.createElement('thead'); const tr = document.createElement('tr');
+  head.forEach(h => { const th = document.createElement('th'); th.textContent = h; tr.appendChild(th); });
+  thead.appendChild(tr); tbl.appendChild(thead);
+  const tbody = document.createElement('tbody');
+  rows.forEach(r => {
+    const trr = document.createElement('tr');
+    r.forEach(c => { const td = document.createElement('td'); td.textContent = c; td.title = c; trr.appendChild(td); });
+    tbody.appendChild(trr);
+  });
+  tbl.appendChild(tbody); wrap.appendChild(tbl); target.appendChild(wrap);
+  const stats = document.createElement('div'); stats.className = 'table-stats';
+  stats.textContent = rows.length + ' rows · ' + head.length + ' columns';
+  target.appendChild(stats);
+}
+function renderMD(src){
+  const lines = src.replace(/\r/g,'').split('\n');
+  const out = []; let i = 0;
+  while (i < lines.length){
+    const line = lines[i];
+    let m;
+    if ((m = line.match(/^(#{1,4})\s+(.*)$/))){
+      const lvl = m[1].length;
+      out.push('<h'+lvl+'>'+inlineMD(escapeHTML(m[2]))+'</h'+lvl+'>');
+      i++; continue;
+    }
+    if (line.match(/^---+\s*$/)){ out.push('<hr>'); i++; continue; }
+    if (line.startsWith('```')){
+      const buf = []; i++;
+      while (i < lines.length && !lines[i].startsWith('```')){
+        buf.push(lines[i]); i++;
+      }
+      i++;
+      out.push('<pre>'+escapeHTML(buf.join('\n'))+'</pre>');
+      continue;
+    }
+    if (line.match(/^\s*\|/) && lines[i+1] && lines[i+1].match(/^\s*\|[\s\-:\|]+\|\s*$/)){
+      const head = line.split('|').slice(1,-1).map(c=>c.trim());
+      i += 2;
+      const rows = [];
+      while (i < lines.length && lines[i].match(/^\s*\|/)){
+        rows.push(lines[i].split('|').slice(1,-1).map(c=>c.trim()));
+        i++;
+      }
+      let t = '<table><thead><tr>' + head.map(h=>'<th>'+inlineMD(escapeHTML(h))+'</th>').join('') + '</tr></thead><tbody>';
+      rows.forEach(r => {
+        t += '<tr>' + r.map(c=>'<td>'+inlineMD(escapeHTML(c))+'</td>').join('') + '</tr>';
+      });
+      t += '</tbody></table>';
+      out.push(t); continue;
+    }
+    if (line.match(/^[-*]\s+/)){
+      const buf = [];
+      while (i < lines.length && lines[i].match(/^[-*]\s+/)){
+        buf.push('<li>' + inlineMD(escapeHTML(lines[i].replace(/^[-*]\s+/, ''))) + '</li>');
+        i++;
+      }
+      out.push('<ul>' + buf.join('') + '</ul>');
+      continue;
+    }
+    if (line.match(/^\d+\.\s+/)){
+      const buf = [];
+      while (i < lines.length && lines[i].match(/^\d+\.\s+/)){
+        buf.push('<li>' + inlineMD(escapeHTML(lines[i].replace(/^\d+\.\s+/, ''))) + '</li>');
+        i++;
+      }
+      out.push('<ol>' + buf.join('') + '</ol>');
+      continue;
+    }
+    if (line.trim() === ''){ i++; continue; }
+    const buf = [line]; i++;
+    while (i < lines.length && lines[i].trim() !== '' &&
+           !lines[i].match(/^(#{1,4}\s|[-*]\s|\d+\.\s|>\s|\||---+|```)/)){
+      buf.push(lines[i]); i++;
+    }
+    out.push('<p>' + inlineMD(escapeHTML(buf.join(' '))) + '</p>');
+  }
+  return out.join('\n');
+}
+async function fetchText(fn){
+  try {
+    const r = await fetch(fn, {cache: 'no-store'});
+    if (!r.ok) return null;
+    return await r.text();
+  } catch(e){ return null; }
+}
+function toggleFile(el){
+  el.parentElement.classList.toggle('open');
+}
+async function initFiles(){
+  for (const el of document.querySelectorAll('[data-csv]')){
+    const text = await fetchText(el.dataset.csv);
+    if (text === null){
+      el.innerHTML = '<p class="muted">Source not loadable. <a href="' + el.dataset.csv + '" target="_blank" rel="noopener">Open raw →</a></p>';
+      continue;
+    }
+    el.innerHTML = ''; renderCSV(el, text);
+  }
+  for (const el of document.querySelectorAll('[data-md]')){
+    const text = await fetchText(el.dataset.md);
+    if (text === null){
+      el.innerHTML = '<p class="muted">Source not loadable. <a href="' + el.dataset.md + '" target="_blank" rel="noopener">Open raw →</a></p>';
+      continue;
+    }
+    const wrap = document.createElement('div'); wrap.className = 'md';
+    wrap.innerHTML = renderMD(text); el.appendChild(wrap);
+  }
+  for (const el of document.querySelectorAll('[data-pre]')){
+    const text = await fetchText(el.dataset.pre);
+    if (text === null){ el.textContent = 'Source not loadable.'; continue; }
+    el.textContent = text;
+  }
+}
+document.addEventListener('DOMContentLoaded', initFiles);
+
+// Sidebar active-section tracking
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting){
+      const id = e.target.id;
+      document.querySelectorAll('.toc a').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, {rootMargin: '-30% 0px -60% 0px'});
+document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
