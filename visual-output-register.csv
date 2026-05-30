@@ -1,0 +1,17 @@
+artifact_id,path,artifact_kind,role,authority,derived_from,dimension_claim,notes
+DOC-001,design.md,design_doc,design_spec,reference_only,,none,Parametric design spec with YAML frontmatter; geometry and acoustic targets derived from Bessel-function model — no physical measurement or CAD verification yet.
+PARAM-001,parameters.csv,design_table,design_table,pending_measurement,DOC-001,derived_from_authority,Root parametric values (shell OD/height, pedestal OD, base dimensions, pitch targets); blocked from fabrication authority until coupon and first-strike measurements exist.
+BOM-001,bom.csv,design_table,bom,pending_measurement,PARAM-001,derived_from_authority,Material quantities and supplier SKUs; pricing is ballpark estimate — requires purchase-order verification before production.
+SRC-001,sourcing.csv,design_table,sourcing,pending_measurement,BOM-001,derived_from_authority,Supplier and lead-time list derived from BOM; not purchase-verified.
+CUT-001,cut-list.csv,design_table,cut_list,pending_measurement,PARAM-001,derived_from_authority,Sheet-metal blank dimensions from parametric circumference/height math; requires slip-roll coupon gate before shop release.
+BEND-001,bend-table.csv,design_table,bend_table,pending_measurement,PARAM-001,derived_from_authority,Bend allowance and deduction values for bracket and lug-ring features; verify against actual material-thickness coupon before CNC release.
+VAL-001,validation.csv,measurement_template,measurement_template,pending_measurement,,none,Template for predicted-vs-measured pitch, tension, and safety checks; no measured rows present — all evidence pending physical build.
+WLF-001,wolfram-starter.wl,acoustic_model,acoustic_model,pending_measurement,DOC-001,derived_from_authority,Bessel-function membrane acoustic model with air-load correction; pitch predictions carry ±20 cent uncertainty until first-strike data are logged.
+CNC-001,cnc/cnc-plan.json,cnc_doc,cnc_plan,pending_measurement,CUT-001,derived_from_authority,Structured CNC plan (slip-roll, TIG, drill ops); not a verified toolpath — requires coupon runs before production release.
+CNC-002,cnc/operations.csv,cnc_doc,cnc_operations,pending_measurement,CNC-001,derived_from_authority,Per-operation detail table; authority blocked until coupon confirmation of minimum slip-roll radius for drum-5 (100 mm OD shell).
+CNC-003,cnc/setup-sheet.md,cnc_doc,setup_sheet,pending_measurement,CNC-001,derived_from_authority,Human-readable setup sheet for shop use; inherits pending_measurement status from CNC plan.
+CAD-STUB,cad/README.md,cad_placeholder,placeholder,concept_only,,none,Placeholder listing 8 expected SolidWorks/STEP files; no actual CAD geometry exists yet.
+DRW-STUB,drawings/README.md,drawing_placeholder,placeholder,concept_only,,none,Placeholder for future DXF flat patterns and shop drawings; no DXF or SVG produced yet.
+HTML-001,explorer.html,interactive_preview,derived_preview,concept_only,DOC-001,derived_from_authority,Browser-based studio explorer; visual concept only — does not control shell geometry, pedestal dimensions, or tuning claims.
+HTML-002,card-for-showcase.html,showcase_card,derived_preview,concept_only,DOC-001,derived_from_authority,Showcase card for portfolio display; concept-only authority.
+VBB-001,visual-bom-brief.md,visual_brief,derived_preview,concept_only,BOM-001,derived_from_authority,Markdown visual BOM brief; not a cut file or shop-ready authority.
