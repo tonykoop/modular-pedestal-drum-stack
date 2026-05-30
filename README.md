@@ -5,6 +5,7 @@
 **Class:** Sheet-metal greenfield instrument
 **Sprint:** 2026-05-20 sheet-metal-instruments Round 5, Lane 08
 **Status:** `v0.1.0-blueprint`
+**Readiness:** L1 — concept packet (design intent complete; no fabricated CAD, no DXF flat patterns, no physical build)
 
 A vertical stack of five single-headed sheet-metal drums sharing a central pedestal pole.
 Drum diameters step down 300 → 250 → 200 → 150 → 100 mm from bottom to top, giving an
