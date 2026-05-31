@@ -65,7 +65,7 @@ Targets cluster in the 200–425 N/m range — well within a standard 6-rod snar
 lug ring's working envelope (a typical 14" snare is tensioned to ~600 N/m for a tight
 crack). The smallest drum (drum-5) needs the **loosest** tension, which inverts the
 intuitive "tighter = smaller" assumption for fixed-pitch arrays. See
-`wolfram-starter.wl` for the full sweep, sensitivity to head thickness, and harmonic
+`modular-pedestal-drum-stack-starter.wl` for the full sweep, sensitivity to head thickness, and harmonic
 predictions.
 
 ## 3. Shell role — coupling and damping

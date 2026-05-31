@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: CERN-OHL-W-2.0
 target_metric,predicted,measured,units,pass_fail,notes
-drum1_f01,110.00,,Hz,pending,target A2; predicted from wolfram-starter.wl with T=425 N/m
+drum1_f01,110.00,,Hz,pending,target A2; predicted from modular-pedestal-drum-stack-starter.wl with T=425 N/m
 drum1_f11,175.31,,Hz,pending,first overtone (1.594 * f01); not harmonic
 drum2_f01,130.81,,Hz,pending,target C3
 drum2_f11,208.51,,Hz,pending,first overtone

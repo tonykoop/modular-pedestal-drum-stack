@@ -3,7 +3,7 @@
 
 Additional Wolfram modules (placeholder).
 
-The primary acoustic model is `../wolfram-starter.wl` at the repo root. This
+The primary acoustic model is `../modular-pedestal-drum-stack-starter.wl` at the repo root. This
 folder is reserved for follow-on modules:
 
 - `sensitivity-sweep.wl` — sweep head thickness, density, target pitch

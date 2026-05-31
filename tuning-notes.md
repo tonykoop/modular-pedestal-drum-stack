@@ -11,7 +11,7 @@
 | 4    | 150     | G3          | 196.00    | 343               | 312.4                         |
 | 5    | 100     | A3          | 220.00    | 215               | 350.6                         |
 
-Predictions from `wolfram-starter.wl` for an ideal circular membrane under uniform
+Predictions from `modular-pedestal-drum-stack-starter.wl` for an ideal circular membrane under uniform
 tension. Real drums diverge in three predictable ways:
 
 1. **Air-load drop** — a head with open shell below it drops ~2–3% in fundamental
@@ -67,7 +67,7 @@ Alternative tunings to consider for v0.2:
 - **Whole-tone:** A2-B2-C#3-D#3-F3 — equal 2-semitone steps, dreamy non-tonal.
 - **Drone-and-melody:** A2-A3 octave on drums 1 and 5, with C3-D3-E3 melody in
   the middle three.
-- **Custom:** swap the predicted tensions in `wolfram-starter.wl` to derive a
+- **Custom:** swap the predicted tensions in `modular-pedestal-drum-stack-starter.wl` to derive a
   fabricator-specified scale.
 
 ## Strike-zone notes
