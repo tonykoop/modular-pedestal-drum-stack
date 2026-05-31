@@ -21,14 +21,14 @@ Top citations consulted:
   "Drumheads obey a 2D wave equation; their normal modes are Bessel functions, not
   sines. The fundamental of an ideal circular membrane of radius `a`, areal density
   `σ`, and tension `T` per unit ..." — used as the basis for the Bessel-function
-  membrane model in `wolfram-starter.wl`.
+  membrane model in `modular-pedestal-drum-stack-starter.wl`.
 - `qmd://instrument-builds/docs/textbook/chapters/03-instrument-families.md:304` —
   drum-family catalogue (djembe, ashiko, conga, dundun, bodhran, frame drums,
   snare/tom) and 12" djembe head sample geometry — used to anchor the diameter
   steps and target tension range.
 - `qmd://instrument-wiki/synthesis/wolfram-model-patterns.md:131` — repo-wide list
   of existing Wolfram starters for vessel-flute Helmholtz, ceramic vessel-lab,
-  duntong/instrument-m... — modeled the layout of this repo's wolfram-starter.wl
+  duntong/instrument-m... — modeled the layout of this repo's modular-pedestal-drum-stack-starter.wl
   after these patterns (header, ClearAll, dataset output).
 - `qmd://instrument-wiki/index.md:27` — wiki pointers to ceramic-hang,
   ceramic-tongue-drum, wood-shell-tongue-drum entries for adjacent percussion
@@ -73,7 +73,7 @@ fully greenfield contribution to the portfolio.
 - Pole bending under lateral mallet impact at the top drum — quoted at 5 mm max
   in `validation.csv` based on cantilever beam estimate; needs measurement.
 - The 100 mm drum (drum-5) has loose tension and may favor a 7-mil head;
-  `wolfram-starter.wl` sensitivity check shows this drops tension below 110 N/m
+  `modular-pedestal-drum-stack-starter.wl` sensitivity check shows this drops tension below 110 N/m
   which is at the low end of useful — alternative tuning to B3 or C4 is a
   possible v0.2 fork.
 
@@ -90,7 +90,7 @@ LICENSE-DOCS.md
 README.md
 design.md
 parameters.csv
-wolfram-starter.wl
+modular-pedestal-drum-stack-starter.wl
 validation.csv
 tuning-notes.md
 bom.csv

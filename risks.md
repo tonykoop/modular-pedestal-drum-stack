@@ -7,7 +7,7 @@
   which is below the typical "tight crack" range and may cause head wrinkles or
   uneven seating. Mitigation: try a thinner 7-mil head (Remo Ambassador X-Thin) —
   tension drops further, but the head stays flatter. Or accept a higher pitch
-  (B3 or C4) for drum-5 and re-derive in `wolfram-starter.wl`.
+  (B3 or C4) for drum-5 and re-derive in `modular-pedestal-drum-stack-starter.wl`.
 - **Inter-drum sympathetic ringing.** Five drums in close proximity will excite each
   other when one is struck. The rubber pucks between counter hoops help, but if the
   effect is musically distracting, add a felt damping strip inside each shell.

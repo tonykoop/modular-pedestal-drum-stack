@@ -35,7 +35,7 @@ For the capstone deck once the instrument is fabricated.
 ## Showcase / explorer
 
 16. **Cardstock flat-pattern prototypes** — proof of geometry before metal cut.
-17. **Wolfram acoustic plot** — screenshot of `wolfram-starter.wl` output
+17. **Wolfram acoustic plot** — screenshot of `modular-pedestal-drum-stack-starter.wl` output
     showing predicted pitches across the 5 drums.
 18. **Card mounted in `instrument-showcase/library.html`** — browser
     screenshot showing the card in context.
