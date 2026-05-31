@@ -100,21 +100,67 @@ sensitivity7MilEstimate = Module[{thin = 0.178/1000.0, sigmaThin, ts},
   <|"drum-5 with 7mil head tension_N_per_m" -> N[ts, 4]|>
 ];
 
-(* --- Outputs ------------------------------------------------------- *)
-Print["Per-drum predictionsEstimate:"];
-predictionsEstimate
+(* --- Interactive app (CloudDeploy target) -------------------------- *)
+(* Final returned expression: explore how head diameter, target pitch,
+   mylar thickness, and shell wall thickness drive required head tension,
+   predicted membrane partials, and shell ring-mode decoupling.
+   All outputs are EMPIRICAL ESTIMATES — first-order membrane model only. *)
 
-Print["Total span:"];
-totalSpan
-
-Print["Sensitivity to thinner head:"];
-sensitivity7MilEstimate
-
-(*
-Measured tuning template — fill validation.csv with measured_hz once heads are on:
-  measurements = {
-    <|"id" -> "drum-1", "partial" -> "f01", "targetHz" -> 110.00, "measuredHz" -> ___|>,
-    ...
-  };
-  Dataset[Append[#, "cents_err" -> centsErr[#measuredHz, #targetHz]] & /@ measurements]
-*)
+Manipulate[
+  Module[
+    {aM, fTarget, sigma, tensionReq, f01, f11, f21, fShellRing,
+     Esteel = 200.0*10^9, rhoSteel = 7850.0, nuSteel = 0.30, n = 2},
+    aM = (odMM/1000.0)/2.0;
+    fTarget = freqMidi[targetMidi];
+    sigma = mylarDensityEstimate (mil*0.0254/1000.0);
+    tensionReq = sigma ((2 Pi aM fTarget)/zBessel["0,1"])^2;
+    f01 = (zBessel["0,1"]/(2 Pi aM)) Sqrt[tensionReq/sigma];
+    f11 = (zBessel["1,1"]/(2 Pi aM)) Sqrt[tensionReq/sigma];
+    f21 = (zBessel["2,1"]/(2 Pi aM)) Sqrt[tensionReq/sigma];
+    fShellRing = (1.0/(2 Pi aM)) Sqrt[Esteel/(rhoSteel (1 - nuSteel^2))] *
+      ((wallMM/1000.0)/aM) (n (n^2 - 1)/Sqrt[n^2 + 1]);
+    Column[{
+      Style["Modular Pedestal Drum Stack — EMPIRICAL ESTIMATES",
+        Bold, 14],
+      Style["First-order ideal-membrane model. Planning values only, " <>
+        "not fabrication authority.", Italic, Gray],
+      Grid[{
+        {"Quantity", "Value (ESTIMATE)"},
+        {"Head diameter (mm)", N[odMM, 4]},
+        {"Target pitch (Hz)", N[fTarget, 5]},
+        {"Head areal density \[Sigma] (kg/m\.b2)", N[sigma, 4]},
+        {"Required head tension (N/m)", N[tensionReq, 5]},
+        {"Predicted f01 fundamental (Hz)", N[f01, 5]},
+        {"Predicted f11 overtone (Hz)", N[f11, 5]},
+        {"Predicted f21 overtone (Hz)", N[f21, 5]},
+        {"f11/f01 ratio (ideal 1.594)", N[f11/f01, 4]},
+        {"Shell ring n=2 mode (Hz)", N[fShellRing, 5]},
+        {"Shell decoupled (ring > 4\[Times]target)",
+          If[fShellRing > 4 fTarget, "YES", "NO — coupling risk"]}
+      }, Frame -> All, Alignment -> Left,
+        Background -> {None, {{LightYellow, White}}}],
+      Graphics[{
+        {Darker[Green], Thickness[0.02],
+          Line[{{f01, 0}, {f01, 1}}], Text["f01", {f01, 1.1}]},
+        {Blue, Thickness[0.015],
+          Line[{{f11, 0}, {f11, 0.85}}], Text["f11", {f11, 0.95}]},
+        {Purple, Thickness[0.015],
+          Line[{{f21, 0}, {f21, 0.7}}], Text["f21", {f21, 0.8}]},
+        {Red, Dashed, Thickness[0.01],
+          Line[{{fTarget, 0}, {fTarget, 1.2}}],
+          Text["target", {fTarget, 1.3}]}
+        },
+        PlotRange -> {{0, Max[f21, fTarget] 1.2}, {0, 1.5}},
+        AspectRatio -> 1/4, Axes -> {True, False},
+        AxesLabel -> {"Hz (ESTIMATE)", None},
+        ImageSize -> 460,
+        PlotLabel -> Style["Predicted partial spectrum — ESTIMATE", Italic]]
+    }]
+  ],
+  {{odMM, 200.0, "Head diameter mm — ESTIMATE"}, 80, 400, 5},
+  {{targetMidi, 52, "Target pitch MIDI note — ESTIMATE"}, 36, 72, 1},
+  {{mil, 10.0, "Mylar head thickness mil — ESTIMATE"}, 5, 14, 1},
+  {{wallMM, 1.2, "Steel shell wall mm — ESTIMATE"}, 0.6, 3.0, 0.1},
+  ControlPlacement -> Left,
+  SaveDefinitions -> True
+]
