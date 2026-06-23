@@ -106,7 +106,7 @@ sensitivity7MilEstimate = Module[{thin = 0.178/1000.0, sigmaThin, ts},
    predicted membrane partials, and shell ring-mode decoupling.
    All outputs are EMPIRICAL ESTIMATES — first-order membrane model only. *)
 
-Manipulate[
+modulePedestalExplorer = Manipulate[
   Module[
     {aM, fTarget, sigma, tensionReq, f01, f11, f21, fShellRing,
      Esteel = 200.0*10^9, rhoSteel = 7850.0, nuSteel = 0.30, n = 2},
